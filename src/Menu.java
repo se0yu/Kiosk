@@ -2,11 +2,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Menu {
-    public String category;
+    private String menuCategory;
     public List<MenuItem> menuItems = new ArrayList<>();
 
+
+    public String getMenuCategory() {
+        return menuCategory;
+    }
+
     public Menu(String category) {
-        this.category = category;
+        this.menuCategory = category;
     }
 
 

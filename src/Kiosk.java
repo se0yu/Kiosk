@@ -17,18 +17,23 @@ public class Kiosk {
             System.out.println("============ Main Menu ============");
             System.out.print("1. Burgers\n2. Drinks\n3. Desserts \n");
             System.out.println("0. 종료 ");
-
-            int selectCategory = scanner.nextInt();
-            //메뉴 카테고리 번호 입력 (0 입력시 프로그램 종료)
-            switch (selectCategory){
-                case 1 -> printMenu();
-                case 2 -> System.out.println("등록된 메뉴가 없습니다.");
-                case 3 -> System.out.println("등록된 메뉴가 없습니다..");
-                case 0 -> {
-                    return;
+            try {
+                int selectCategory = scanner.nextInt();
+                //메뉴 카테고리 번호 입력 (0 입력시 프로그램 종료)
+                switch (selectCategory){
+                    case 1 -> printMenu();
+                    case 2 -> System.out.println("등록된 메뉴가 없습니다.");
+                    case 3 -> System.out.println("등록된 메뉴가 없습니다..");
+                    case 0 -> {
+                        return;
+                    }
+                    default -> System.out.println("잘못된 입력입니다.");
                 }
-                default -> System.out.println("잘못된 입력입니다.");
+            }catch (InputMismatchException inputMismatchException){
+                    System.out.println("잘못된 입력입니다.");
+                    scanner.nextLine();
             }
+
         }
 
      }
@@ -36,7 +41,7 @@ public class Kiosk {
 
     //메뉴 목록 출력
     private void printMenu() {
-        System.out.println("============= " + menu.category + " MENU" + " =============");
+        System.out.println("============= " + menu.getMenuCategory() + " MENU" + " =============");
         for (int i = 0; i < menu.menuItems.size(); i++) {
             System.out.println(i + 1 + ". "
                     + menu.menuItems.get(i).productName + " | W "
