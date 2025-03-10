@@ -1,60 +1,74 @@
-import java.util.ArrayList;
 import java.util.InputMismatchException;
-import java.util.List;
 import java.util.Scanner;
 
 public class Kiosk {
-    Scanner scanner = new Scanner(System.in);
-
-    private List<MenuItem> menuItems = new ArrayList<>();
-
-
-    //메뉴 리스트 추가
-    private void addMenuList(){
-        menuItems.add(new MenuItem("ShackBurger",6.9,"토마토, 양상추, 쉑소스가 토핑된 치즈버거"));
-        menuItems.add(new MenuItem("SmokeShack",8.9,"베이컨, 체리 페퍼에 쉑소스가 토핑된 치즈버거"));
-        menuItems.add(new MenuItem("Cheeseburger",6.5,"포테이토 번과 비프패티, 치즈가 토핑된 치즈버거"));
-        menuItems.add(new MenuItem("Hamburger",5.4,"비프패티를 기반으로 야채가 들어간 기본버거"));
-
-    }
-
+    private Menu menu;
+    private Scanner scanner = new Scanner(System.in);
 
     //생성자
-    public Kiosk() {
-        addMenuList();
+     Kiosk(Menu menu) {
+        this.menu = menu;
     }
 
-
     //메뉴판 화면 출력
-    public void printMenu(){
-        while (true){
-            //메뉴 리스트 출력
-            System.out.println("============ MENU =============");
-            for (int i = 0; i < menuItems.size(); i++) {
-                MenuItem menuItem = menuItems.get(i);
-                System.out.println(i + 1 + "." + menuItem.productName + " | W " + menuItem.productPrice + " | " + menuItem.productInfo);
-            }
-            System.out.println("0. 키오스크 종료 ");
-            //메뉴 번호 입력 (0 입력시 프로그램 종료)
-            try {
-                int selectMenu = scanner.nextInt();
-                if (selectMenu == 0) {
+    public void start() {
+        while (true) {
+            //메인메뉴
+            System.out.println("============ Main Menu ============");
+            System.out.print("1. Burgers\n2. Drinks\n3. Desserts \n");
+            System.out.println("0. 종료 ");
+
+            int selectCategory = scanner.nextInt();
+            //메뉴 카테고리 번호 입력 (0 입력시 프로그램 종료)
+            switch (selectCategory){
+                case 1 -> printMenu();
+                case 2 -> System.out.println("등록된 메뉴가 없습니다.");
+                case 3 -> System.out.println("등록된 메뉴가 없습니다..");
+                case 0 -> {
                     return;
-                } else {
-                    MenuItem menuItem = menuItems.get(selectMenu - 1);
-                    System.out.println("선택한 메뉴 : " + menuItem.productName + " " + menuItem.productPrice + " " + menuItem.productInfo + "\n");
                 }
-            } catch (IndexOutOfBoundsException indexOutOfBoundsException) {
-                System.out.println("잘못된 입력입니다. 다시 입력해주세요.\n");
-            } catch (InputMismatchException inputMismatchException) {
-                System.out.println("잘못된 입력입니다. 숫자를 입력해주세요.\n");
-                scanner.nextLine();
+                default -> System.out.println("잘못된 입력입니다.");
             }
-            }
-
-            }
-
         }
+
+     }
+
+
+    //메뉴 목록 출력
+    private void printMenu() {
+        System.out.println("============= " + menu.category + " MENU" + " =============");
+        for (int i = 0; i < menu.menuItems.size(); i++) {
+            System.out.println(i + 1 + ". "
+                    + menu.menuItems.get(i).productName + " | W "
+                    + menu.menuItems.get(i).productPrice + " | "
+                    + menu.menuItems.get(i).productInfo);
+        }
+        System.out.println("0. 뒤로 가기 ");
+        System.out.println("=======================================");
+        try {
+            int selectMenu = scanner.nextInt();
+            // 입력받은 번호의 메뉴 출력 (0 입력시 메인으로 돌아감)
+            if (selectMenu != 0) {
+                printSelectedMenu(selectMenu - 1);
+            }
+            // 메뉴 숫자 초과, 정수 외 다른 타입 입력시 예외처리
+        }catch(IndexOutOfBoundsException indexOutOfBoundsException){
+            System.out.println("잘못된 입력입니다. 다시 입력해주세요.\n");
+        } catch(InputMismatchException inputMismatchException){
+            System.out.println("잘못된 입력입니다. 숫자를 입력해주세요.\n");
+            scanner.nextLine();
+        }
+    }
+
+    //선택된 메뉴 출력
+    private void printSelectedMenu(int selectMenu) {
+        System.out.println("선택한 메뉴 : " + menu.menuItems.get(selectMenu).productName + "  | W "
+                + menu.menuItems.get(selectMenu).productPrice + " | "
+                + menu.menuItems.get(selectMenu).productInfo + "\n");
+    }
+
+}
+
 
 
 
