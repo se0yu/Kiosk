@@ -2,8 +2,8 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Kiosk {
-    private Menu menu;
-    private Scanner scanner = new Scanner(System.in);
+    private final Menu menu;
+    private final Scanner scanner = new Scanner(System.in);
 
     //생성자
      Kiosk(Menu menu) {
@@ -21,7 +21,10 @@ public class Kiosk {
                 int selectCategory = scanner.nextInt();
                 //메뉴 카테고리 번호 입력 (0 입력시 프로그램 종료)
                 switch (selectCategory){
-                    case 1 -> printMenu();
+                    case 1 -> {
+                        printMenu();
+                        printSelectedMenu();
+                    }
                     case 2 -> System.out.println("등록된 메뉴가 없습니다.");
                     case 3 -> System.out.println("등록된 메뉴가 없습니다..");
                     case 0 -> {
@@ -41,7 +44,7 @@ public class Kiosk {
 
     //메뉴 목록 출력
     private void printMenu() {
-        System.out.println("============= " + menu.getMenuCategory() + " MENU" + " =============");
+        System.out.println("[ " + menu.getMenuCategory() + " MENU" + " ]");
         for (int i = 0; i < menu.menuItems.size(); i++) {
             System.out.println(i + 1 + ". "
                     + menu.menuItems.get(i).productName + " | W "
@@ -49,12 +52,19 @@ public class Kiosk {
                     + menu.menuItems.get(i).productInfo);
         }
         System.out.println("0. 뒤로 가기 ");
-        System.out.println("=======================================");
+        System.out.println("===================================");
+    }
+
+
+    //입력받은 번호의 메뉴 출력
+    private void printSelectedMenu(){
         try {
             int selectMenu = scanner.nextInt();
             // 입력받은 번호의 메뉴 출력 (0 입력시 메인으로 돌아감)
             if (selectMenu != 0) {
-                printSelectedMenu(selectMenu - 1);
+                System.out.println("선택한 메뉴 : " + menu.menuItems.get(selectMenu-1).productName + "  | W "
+                        + menu.menuItems.get(selectMenu-1).productPrice + " | "
+                        + menu.menuItems.get(selectMenu-1).productInfo + "\n");
             }
             // 메뉴 숫자 초과, 정수 외 다른 타입 입력시 예외처리
         }catch(IndexOutOfBoundsException indexOutOfBoundsException){
@@ -65,14 +75,9 @@ public class Kiosk {
         }
     }
 
-    //선택된 메뉴 출력
-    private void printSelectedMenu(int selectMenu) {
-        System.out.println("선택한 메뉴 : " + menu.menuItems.get(selectMenu).productName + "  | W "
-                + menu.menuItems.get(selectMenu).productPrice + " | "
-                + menu.menuItems.get(selectMenu).productInfo + "\n");
     }
 
-}
+
 
 
 
