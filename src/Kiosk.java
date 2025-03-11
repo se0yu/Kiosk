@@ -2,13 +2,14 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Kiosk {
-    private final Menu menu;
+    public Menu menu;
     private final Scanner scanner = new Scanner(System.in);
 
     //생성자
      Kiosk(Menu menu) {
         this.menu = menu;
     }
+
 
     //메뉴판 화면 출력
     public void start() {
@@ -22,7 +23,7 @@ public class Kiosk {
                 //메뉴 카테고리 번호 입력 (0 입력시 프로그램 종료)
                 switch (selectCategory){
                     case 1 -> {
-                        printMenu();
+                        menu.printMenu();
                         printSelectedMenu();
                     }
                     case 2 -> System.out.println("등록된 메뉴가 없습니다.");
@@ -40,20 +41,6 @@ public class Kiosk {
         }
 
      }
-
-
-    //메뉴 목록 출력
-    private void printMenu() {
-        System.out.println("[ " + menu.getMenuCategory() + " MENU" + " ]");
-        for (int i = 0; i < menu.menuItems.size(); i++) {
-            System.out.println(i + 1 + ". "
-                    + menu.menuItems.get(i).productName + " | W "
-                    + menu.menuItems.get(i).productPrice + " | "
-                    + menu.menuItems.get(i).productInfo);
-        }
-        System.out.println("0. 뒤로 가기 ");
-        System.out.println("===================================");
-    }
 
 
     //입력받은 번호의 메뉴 출력
