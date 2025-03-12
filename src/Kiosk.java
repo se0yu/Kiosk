@@ -67,7 +67,6 @@ public class Kiosk {
     private void addCart(MenuItem menuItem){
         System.out.println("위 메뉴를 장바구니에 추가하시겠습니까? \n 1. 확인          2. 취소");
         int inputMenu = scanner.nextInt();
-         try {
              switch (inputMenu){
                  case 1 -> {
                      cart.cartList.add(menuItem);
@@ -77,18 +76,12 @@ public class Kiosk {
                      System.out.println("메뉴로 돌아갑니다.");
                      return;
                  }
-                 default -> System.out.println("잘못된 입력입니다.");
+                 default -> System.out.println("잘못된 입력입니다. 메뉴로 돌아갑니다.");
              }
-         }catch (InputMismatchException inputMismatchException){
-             System.out.println("잘못된 입력입니다. 숫자를 입력해주세요.");
-             scanner.nextLine();
          }
+}
 
 
-    }
-
-
-    }
 
 
 
