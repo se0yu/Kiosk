@@ -4,7 +4,7 @@ import java.util.Scanner;
 public class Kiosk {
     public Menu menu;
     private final Scanner scanner = new Scanner(System.in);
-    private Cart cart = new Cart();
+    private final Cart cart = new Cart();
     //생성자
      Kiosk(Menu menu) {
         this.menu = menu;
@@ -18,6 +18,11 @@ public class Kiosk {
             System.out.println("============ Main Menu ============");
             System.out.print("1. Burgers\n2. Drinks\n3. Desserts \n");
             System.out.println("0. 종료 ");
+            if(!cart.cartList.isEmpty()){
+                System.out.println("[ ORDER MENU ]");
+                System.out.println("4.  Orders       | 장바구니를 확인 후 주문합니다.");
+                System.out.println("5.  Cancel       | 진행중인 주문을 취소합니다.");
+            }
             try {
                 int selectCategory = scanner.nextInt();
                 //메뉴 카테고리 번호 입력 (0 입력시 프로그램 종료)
@@ -28,6 +33,20 @@ public class Kiosk {
                     }
                     case 2 -> System.out.println("등록된 메뉴가 없습니다.");
                     case 3 -> System.out.println("등록된 메뉴가 없습니다..");
+                    case 4 -> {
+                        if(!cart.cartList.isEmpty()){
+                            cart.printCartList();
+                        }else {
+                            System.out.println("잘못된 입력입니다.");
+                        }
+                    }
+                    case 5 ->{
+                        if(!cart.cartList.isEmpty()){
+                            cart.cancelOrder();
+                        }else{
+                            System.out.println("잘못된 입력입니다.");
+                        }
+                    }
                     case 0 -> {
                         return;
                     }
@@ -72,10 +91,7 @@ public class Kiosk {
                      cart.cartList.add(menuItem);
                      System.out.println(menuItem.productName+" 가 장바구니에 추가되었습니다.");
                  }
-                 case 2 -> {
-                     System.out.println("메뉴로 돌아갑니다.");
-                     return;
-                 }
+                 case 2 -> System.out.println("메뉴로 돌아갑니다.");
                  default -> System.out.println("잘못된 입력입니다. 메뉴로 돌아갑니다.");
              }
          }
