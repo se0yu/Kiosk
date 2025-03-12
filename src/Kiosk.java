@@ -4,7 +4,7 @@ import java.util.Scanner;
 public class Kiosk {
     public Menu menu;
     private final Scanner scanner = new Scanner(System.in);
-
+    private Cart cart = new Cart();
     //생성자
      Kiosk(Menu menu) {
         this.menu = menu;
@@ -51,7 +51,9 @@ public class Kiosk {
             if (selectMenu != 0) {
                 System.out.println("선택한 메뉴 : " + menu.menuItems.get(selectMenu-1).productName + "  | W "
                         + menu.menuItems.get(selectMenu-1).productPrice + " | "
-                        + menu.menuItems.get(selectMenu-1).productInfo + "\n");
+                        + menu.menuItems.get(selectMenu-1).productInfo + "\n" );
+
+                addCart(menu.menuItems.get(selectMenu-1));
             }
             // 메뉴 숫자 초과, 정수 외 다른 타입 입력시 예외처리
         }catch(IndexOutOfBoundsException indexOutOfBoundsException){
@@ -61,6 +63,30 @@ public class Kiosk {
             scanner.nextLine();
         }
     }
+
+    private void addCart(MenuItem menuItem){
+        System.out.println("위 메뉴를 장바구니에 추가하시겠습니까? \n 1. 확인          2. 취소");
+        int inputMenu = scanner.nextInt();
+         try {
+             switch (inputMenu){
+                 case 1 -> {
+                     cart.cartList.add(menuItem);
+                     System.out.println(menuItem.productName+" 가 장바구니에 추가되었습니다.");
+                 }
+                 case 2 -> {
+                     System.out.println("메뉴로 돌아갑니다.");
+                     return;
+                 }
+                 default -> System.out.println("잘못된 입력입니다.");
+             }
+         }catch (InputMismatchException inputMismatchException){
+             System.out.println("잘못된 입력입니다. 숫자를 입력해주세요.");
+             scanner.nextLine();
+         }
+
+
+    }
+
 
     }
 
