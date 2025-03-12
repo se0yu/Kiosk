@@ -36,6 +36,8 @@ public class Kiosk {
                     case 4 -> {
                         if(!cart.cartList.isEmpty()){
                             cart.printCartList();
+                            System.out.println("1. 주문      2. 메뉴판");
+                            cart.orderCart(scanner.nextInt());
                         }else {
                             System.out.println("잘못된 입력입니다.");
                         }
