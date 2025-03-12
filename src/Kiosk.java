@@ -26,6 +26,7 @@ public class Kiosk {
             try {
                 int selectCategory = scanner.nextInt();
                 //메뉴 카테고리 번호 입력 (0 입력시 프로그램 종료)
+                //장바구니 비어있을 경우 Order Menu 하단 안보이게
                 switch (selectCategory){
                     case 1 -> {
                         menu.printMenu();
@@ -58,9 +59,7 @@ public class Kiosk {
                     System.out.println("잘못된 입력입니다.");
                     scanner.nextLine();
             }
-
         }
-
      }
 
 
@@ -73,7 +72,6 @@ public class Kiosk {
                 System.out.println("선택한 메뉴 : " + menu.menuItems.get(selectMenu-1).productName + "  | W "
                         + menu.menuItems.get(selectMenu-1).productPrice + " | "
                         + menu.menuItems.get(selectMenu-1).productInfo + "\n" );
-
                 addCart(menu.menuItems.get(selectMenu-1));
             }
             // 메뉴 숫자 초과, 정수 외 다른 타입 입력시 예외처리
@@ -85,6 +83,7 @@ public class Kiosk {
         }
     }
 
+    //장바구니에 물건 추가
     private void addCart(MenuItem menuItem){
         System.out.println("위 메뉴를 장바구니에 추가하시겠습니까? \n 1. 확인          2. 취소");
         int inputMenu = scanner.nextInt();
