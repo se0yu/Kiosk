@@ -12,7 +12,6 @@ public class Cart {
         System.out.println("[ Orders ]");
         sumPrice = 0;
         for(MenuItem cartList : cartList){
-
             sumPrice+=cartList.productPrice;
             System.out.println(cartList.productName +" | "
                     + cartList.productPrice+" | "
@@ -49,4 +48,7 @@ public class Cart {
         System.out.println("주문이 완료되었습니다. 금액은 W: " + totalPrice+" 입니다.");
     }
 
+    public boolean checkCartEmpty(){
+        return cartList.isEmpty();
+    }
 }

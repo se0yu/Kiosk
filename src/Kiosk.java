@@ -1,4 +1,5 @@
 import java.util.InputMismatchException;
+import java.util.Optional;
 import java.util.Scanner;
 
 public class Kiosk {
@@ -35,28 +36,28 @@ public class Kiosk {
                     case 2 -> System.out.println("등록된 메뉴가 없습니다.");
                     case 3 -> System.out.println("등록된 메뉴가 없습니다..");
                     case 4 -> {
-                        if(!cart.cartList.isEmpty()){
+                        if(!cart.checkCartEmpty()){
                             cart.printCartList();
                             System.out.println("1. 주문      2. 메뉴판");
                             cart.orderCart(scanner.nextInt());
                         }else {
-                            System.out.println("잘못된 입력입니다.");
+                            wrongInput();
                         }
                     }
                     case 5 ->{
-                        if(!cart.cartList.isEmpty()){
+                        if(!cart.checkCartEmpty()){
                             cart.cancelOrder();
                         }else{
-                            System.out.println("잘못된 입력입니다.");
+                            wrongInput();
                         }
                     }
                     case 0 -> {
                         return;
                     }
-                    default -> System.out.println("잘못된 입력입니다.");
+                    default -> wrongInput();
                 }
             }catch (InputMismatchException inputMismatchException){
-                    System.out.println("잘못된 입력입니다.");
+                    wrongInput();
                     scanner.nextLine();
             }
         }
@@ -69,17 +70,15 @@ public class Kiosk {
             int selectMenu = scanner.nextInt();
             // 입력받은 번호의 메뉴 출력 (0 입력시 메인으로 돌아감)
             if (selectMenu != 0) {
-                System.out.println("선택한 메뉴 : " + menu.menuItems.get(selectMenu-1).productName + "  | W "
-                        + menu.menuItems.get(selectMenu-1).productPrice + " | "
-                        + menu.menuItems.get(selectMenu-1).productInfo + "\n" );
-                addCart(menu.menuItems.get(selectMenu-1));
+                MenuItem selectedMenuItem = menu.menuItems.get(selectMenu-1);
+                System.out.println("선택한 메뉴 : " + selectedMenuItem.productName + "  | W "
+                        + selectedMenuItem.productPrice + " | "
+                        + selectedMenuItem.productInfo + "\n" );
+                addCart(selectedMenuItem);
             }
             // 메뉴 숫자 초과, 정수 외 다른 타입 입력시 예외처리
         }catch(IndexOutOfBoundsException indexOutOfBoundsException){
-            System.out.println("잘못된 입력입니다. 다시 입력해주세요.\n");
-        } catch(InputMismatchException inputMismatchException){
-            System.out.println("잘못된 입력입니다. 숫자를 입력해주세요.\n");
-            scanner.nextLine();
+            wrongInput();
         }
     }
 
@@ -93,9 +92,13 @@ public class Kiosk {
                      System.out.println(menuItem.productName+" 가 장바구니에 추가되었습니다.");
                  }
                  case 2 -> System.out.println("메뉴로 돌아갑니다.");
-                 default -> System.out.println("잘못된 입력입니다. 메뉴로 돌아갑니다.");
+                 default -> wrongInput();
              }
          }
+
+     private void wrongInput(){
+         System.out.println("잘못된 입력입니다. 메뉴로 돌아갑니다.");
+     }
 }
 
 
