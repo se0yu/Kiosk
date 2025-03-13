@@ -41,6 +41,7 @@ public class Cart {
         cartList.clear();
     }
 
+    //유저 유형에 따라 할인된 가격을 출력
     private void discount(int selectedUserType){
         double totalPrice;
         UserType userType = UserType.userType(selectedUserType);
@@ -48,7 +49,9 @@ public class Cart {
         System.out.println("주문이 완료되었습니다. 금액은 W: " + totalPrice+" 입니다.");
     }
 
-    public boolean checkCartEmpty(){
-        return cartList.isEmpty();
+
+    //장바구니 리스트 비어있는지 확인
+    public boolean checkCartNotEmpty(){
+        return !cartList.isEmpty();
     }
 }

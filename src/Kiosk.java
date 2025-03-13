@@ -1,5 +1,4 @@
 import java.util.InputMismatchException;
-import java.util.Optional;
 import java.util.Scanner;
 
 public class Kiosk {
@@ -19,7 +18,7 @@ public class Kiosk {
             System.out.println("============ Main Menu ============");
             System.out.print("1. Burgers\n2. Drinks\n3. Desserts \n");
             System.out.println("0. 종료 ");
-            if(!cart.checkCartEmpty()){
+            if(cart.checkCartNotEmpty()){
                 System.out.println("[ ORDER MENU ]");
                 System.out.println("4.  Orders       | 장바구니를 확인 후 주문합니다.");
                 System.out.println("5.  Cancel       | 진행중인 주문을 취소합니다.");
@@ -36,7 +35,7 @@ public class Kiosk {
                     case 2 -> System.out.println("등록된 메뉴가 없습니다.");
                     case 3 -> System.out.println("등록된 메뉴가 없습니다..");
                     case 4 -> {
-                        if(!cart.checkCartEmpty()){
+                        if(cart.checkCartNotEmpty()){
                             cart.printCartList();
                             System.out.println("1. 주문      2. 메뉴판");
                             cart.orderCart(scanner.nextInt());
@@ -45,7 +44,7 @@ public class Kiosk {
                         }
                     }
                     case 5 ->{
-                        if(!cart.checkCartEmpty()){
+                        if(cart.checkCartNotEmpty()){
                             cart.cancelOrder();
                         }else{
                             wrongInput();
@@ -96,6 +95,7 @@ public class Kiosk {
              }
          }
 
+         //에러 발생시 출력
      private void wrongInput(){
          System.out.println("잘못된 입력입니다. 메뉴로 돌아갑니다.");
      }
