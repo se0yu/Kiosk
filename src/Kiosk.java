@@ -19,7 +19,7 @@ public class Kiosk {
             System.out.println("============ Main Menu ============");
             System.out.print("1. Burgers\n2. Drinks\n3. Desserts \n");
             System.out.println("0. 종료 ");
-            if(!cart.cartList.isEmpty()){
+            if(!cart.checkCartEmpty()){
                 System.out.println("[ ORDER MENU ]");
                 System.out.println("4.  Orders       | 장바구니를 확인 후 주문합니다.");
                 System.out.println("5.  Cancel       | 진행중인 주문을 취소합니다.");
